@@ -1,4 +1,4 @@
-package ru.qixi.android.events;
+package ru.qixi.api.events;
 
 /**
  * @author QiXi

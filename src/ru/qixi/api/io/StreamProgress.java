@@ -1,4 +1,4 @@
-package ru.qixi.android.io;
+package ru.qixi.api.io;
 
 /**
  * @author QiXi
