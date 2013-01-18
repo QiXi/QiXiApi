@@ -1,5 +1,11 @@
 package ru.qixi.android.io;
 
-public class ExternalStorage{
+/**
+ * @author QiXi
+ * @mail qixi@mail.ru
+ * @site http://qixi.ru
+ **/
+
+public class ExternalStorage {
 
 }

@@ -9,6 +9,11 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 
+/**
+ * @author QiXi
+ * @mail qixi@mail.ru
+ * @site http://qixi.ru
+ **/
 
 
 public class StreamUtils{

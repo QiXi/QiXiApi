@@ -8,6 +8,11 @@ import java.io.InputStream;
 
 import android.content.Context;
 
+/**
+ * @author QiXi
+ * @mail qixi@mail.ru
+ * @site http://qixi.ru
+ **/
 
 public class InternalStorage {
 

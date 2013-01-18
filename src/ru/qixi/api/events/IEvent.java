@@ -1,11 +1,10 @@
 package ru.qixi.android.events;
 
- /**
- * @author QiXi qixi@mail.ru
- * 14.11.2012 
- * http://qixi.ru
+/**
+ * @author QiXi
+ * @mail qixi@mail.ru
+ * @site http://qixi.ru
  **/
-
 
 public interface IEvent<T> {
 
