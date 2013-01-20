@@ -60,40 +60,45 @@ public class Matrix3Float {
 
 
 	public void identity() {
-		mMatrix[A] = 1;
-		mMatrix[B] = 0;
-		mMatrix[M02] = 0;
+		
+		final float[] mat = mMatrix;
+		
+		mat[A] = 1;
+		mat[B] = 0;
+		mat[M02] = 0;
 
-		mMatrix[C] = 0;
-		mMatrix[D] = 1;
-		mMatrix[M12] = 0;
+		mat[C] = 0;
+		mat[D] = 1;
+		mat[M12] = 0;
 
-		mMatrix[TX] = 0;
-		mMatrix[TY] = 0;
-		mMatrix[M22] = 1;
+		mat[TX] = 0;
+		mat[TY] = 0;
+		mat[M22] = 1;
 	}
 
 
 	public void concat(final float pA, final float pB, final float pC, final float pD, final float pTx, final float pTy) {
 
-		final float ta = mMatrix[A];
-		final float tb = mMatrix[B];
-		final float tc = mMatrix[C];
-		final float td = mMatrix[D];
-		final float ttx = mMatrix[TX];
-		final float tty = mMatrix[TY];
+		final float[] mat = mMatrix;
+		
+		final float ta = mat[A];
+		final float tb = mat[B];
+		final float tc = mat[C];
+		final float td = mat[D];
+		final float ttx = mat[TX];
+		final float tty = mat[TY];
 
-		mMatrix[A] = ta * pA + tc * pB;
-		mMatrix[B] = tb * pA + td * pB;
-		mMatrix[M02] = 0;
+		mat[A] = ta * pA + tc * pB;
+		mat[B] = tb * pA + td * pB;
+		//mat[M02] = 0;
 
-		mMatrix[C] = ta * pC + tc * pD;
-		mMatrix[D] = tb * pC + td * pD;
-		mMatrix[M12] = 0;
+		mat[C] = ta * pC + tc * pD;
+		mat[D] = tb * pC + td * pD;
+		//mat[M12] = 0;
 
-		mMatrix[TX] = ta * pTx + tc * pTy + ttx;
-		mMatrix[TY] = tb * pTx + td * pTy + tty;
-		mMatrix[M22] = 1;
+		mat[TX] = ta * pTx + tc * pTy + ttx;
+		mat[TY] = tb * pTx + td * pTy + tty;
+		//mat[M22] = 1;
 	}
 
 
@@ -111,19 +116,21 @@ public class Matrix3Float {
 		final float det = determinant();
 		final float dd = (0.0f == det) ? 1.0f : det;
 
-		final float ta = mMatrix[A];
-		final float tb = mMatrix[B];
-		final float tc = mMatrix[C];
-		final float td = mMatrix[D];
-		final float ttx = mMatrix[TX];
-		final float tty = mMatrix[TY];
+		final float[] mat = mMatrix;
+		
+		final float ta = mat[A];
+		final float tb = mat[B];
+		final float tc = mat[C];
+		final float td = mat[D];
+		final float ttx = mat[TX];
+		final float tty = mat[TY];
 
-		mMatrix[A] = td / dd;
-		mMatrix[B] = -tb / dd;
-		mMatrix[C] = -(tc - ttx) / dd;
-		mMatrix[D] = ta / dd;
-		mMatrix[TX] = -(tc - ttx * td) / dd;
-		mMatrix[TY] = -(ta * tty - ttx * tb) / dd;
+		mat[A] = td / dd;
+		mat[B] = -tb / dd;
+		mat[C] = -(tc - ttx) / dd;
+		mat[D] = ta / dd;
+		mat[TX] = -(tc - ttx * td) / dd;
+		mat[TY] = -(ta * tty - ttx * tb) / dd;
 	}
 
 
@@ -133,6 +140,43 @@ public class Matrix3Float {
 		final float cos = (float) Math.cos(angle);
 		concat(cos, -sin, sin, cos, 0.0f, 0.0f);
 	}
+	
+	
+    public void rotate(final float pAngle, final float pX, final float pY, final float pZ) {
+    	/*TO DO*/
+		float angle = (float) (Math.PI / 180.0f);
+		float c = (float) Math.cos(angle);
+		float s = (float) Math.sin(angle);
+		float x = pX;
+		float y = pY;
+		float z = pZ;
+		float len = (float) Math.sqrt(x * x + y * y + z * z);
+		if (!(len != 1)) {
+			float recipLen = 1.f / len;
+			x *= recipLen;
+			y *= recipLen;
+			z *= recipLen;
+		}
+		float nc = 1.0f - c;
+		float xy = x * y;
+		float yz = y * z;
+		float zx = z * x;
+		float xs = x * s;
+		float ys = y * s;
+		float zs = z * s;
+		
+		final float[] mat = mMatrix;
+
+		mat[0] = x * x * nc + c;
+		mat[3] = xy * nc - zs;
+		mat[6] = zx * nc + ys;//?
+		mat[1] = xy * nc + zs;
+		mat[4] = y * y * nc + c;
+		mat[9] = yz * nc - xs;
+		mat[2] = zx * nc - ys;
+		mat[6] = yz * nc + xs;//?
+		mat[8] = z * z * nc + c;
+    }
 
 
 	public void scale(final float pSx, final float pSy) {
