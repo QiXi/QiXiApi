@@ -1,6 +1,5 @@
 package ru.qixi.api.statemachine;
 
-
 import java.util.ArrayList;
 
 
@@ -10,98 +9,85 @@ import java.util.ArrayList;
  * @site http://qixi.ru
  **/
 
-
 public class StateManager {
-	
-	protected ArrayList<State> stack;
-	protected int length;
-	
-	
-	public StateManager()
-	{
-		stack = new ArrayList<State>();
-		length = 0;
+
+	protected ArrayList<State>	mStack;
+	protected int				mLength;
+
+
+	public StateManager() {
+		mStack = new ArrayList<State>();
+		mLength = 0;
 	}
-	
-	
-	public void pushState(State state)
-	{
-		if(length != 0){
-			if(stack.get(length-1) == state)
-				return;
-			state.previous = stack.get(length-1);
-			state.previous.leaveState();
+
+
+	public void pushState(final State pState) {
+		if (mLength != 0) {
+			if (mStack.get(mLength - 1) == pState) return;
+			pState.previous = mStack.get(mLength - 1);
+			pState.previous.leaveState();
 		}
-		stack.add(state);
-		length = stack.size();
-		state.enterState();
+		mStack.add(pState);
+		mLength = mStack.size();
+		pState.enterState();
 	}
-	
-	
-	public void popState()
-	{
-		if(length!=0){
-			State state = stack.remove(length-1);			
+
+
+	public void popState() {
+		if (mLength != 0) {
+			State state = mStack.remove(mLength - 1);
 			state.leaveState();
-			state.previous = null;	
-			
-			length = stack.size();			
-			if(length!=0)
-				stack.get(length-1).enterState();
+			state.previous = null;
+
+			mLength = mStack.size();
+			if (mLength != 0) mStack.get(mLength - 1).enterState();
 		}
 	}
-	
-	
-	public void changeState(State state)
-	{	
-		if(length!=0)
-			stack.get(length-1).leaveState();
-		for (int i = 0; i < length; i++) {
-			stack.get(i).previous = null;
-		}				
-		stack = new ArrayList<State>();
-		length = stack.size();
-		pushState(state);
+
+
+	public void changeState(final State pState) {
+		if (mLength != 0) mStack.get(mLength - 1).leaveState();
+		for (int i = 0; i < mLength; i++) {
+			mStack.get(i).previous = null;
+		}
+		mStack = new ArrayList<State>();
+		mLength = mStack.size();
+		pushState(pState);
 	}
-	
-	
-	public State getState()
-	{
-		if(length!=0){
-			return stack.get(length-1);
+
+
+	public State getState() {
+		if (mLength != 0) {
+			return mStack.get(mLength - 1);
 		}
 		return null;
 	}
-	
-	
-	public void updatePreviousState(float time)
-	{
-		State state = stack.get(length-2);
-		state.updateState(time);
+
+
+	public void updatePreviousState(final float pTime) {
+		if (mLength > 1) {
+			State state = mStack.get(mLength - 2);
+			state.updateState(pTime);
+		}
 	}
-	
-	
-	public int getSize()
-	{
-		return length;
+
+
+	public int getSize() {
+		return mLength;
 	}
-	
-	
-	public void update(float deltaTime)
-	{
-		if(length!=0)
-			stack.get(length-1).updateState(deltaTime);
+
+
+	public void update(final float pDeltaTime) {
+		if (mLength != 0) mStack.get(mLength - 1).updateState(pDeltaTime);
 	}
-	
-	
-	public void clear()
-	{		
-		for (int i = 0; i < length; i++) {
-			stack.get(i).previous = null;
-		}		
-		stack = new ArrayList<State>();
-		length = stack.size();		
-	}		
-	
-	
+
+
+	public void clear() {
+		for (int i = 0; i < mLength; i++) {
+			mStack.get(i).previous = null;
+		}
+		mStack = new ArrayList<State>();
+		mLength = mStack.size();
+	}
+
 }

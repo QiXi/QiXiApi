@@ -1,188 +1,174 @@
 package ru.qixi.api.helper;
 
+/**
+ * @author QiXi
+ * @mail qixi@mail.ru
+ * @site http://qixi.ru
+ **/
 
 
 public class ItemsHelper {
-	
-	private int itemIndex;
-	private int itemCount;
-	
-	private int listIndex;
-	private int listCount;
-	private int itemCountOnList;
-	
-	private boolean enabled;
-	
-	private boolean enabledNextItem;
-	private boolean enabledPrevItem;	
-	private boolean enabledNextList;
-	private boolean enabledPrevList;	
-	
-	
-	public ItemsHelper(int count, int countOnList)
-	{
+
+	private int		itemIndex;
+	private int		itemCount;
+
+	private int		listIndex;
+	private int		listCount;
+	private int		itemCountOnList;
+
+	private boolean	enabled;
+
+	private boolean	enabledNextItem;
+	private boolean	enabledPrevItem;
+	private boolean	enabledNextList;
+	private boolean	enabledPrevList;
+
+
+	public ItemsHelper(int count, int countOnList) {
 		itemCount = count;
 		itemCountOnList = countOnList;
-		listCount = count/itemCountOnList;
-		if (count%itemCountOnList!=0){
+		listCount = count / itemCountOnList;
+		if (count % itemCountOnList != 0) {
 			listCount++;
-		}		
-		enabled = (count<1)?false:true;	
+		}
+		enabled = (count < 1) ? false : true;
 		updateEnabledItem();
 		updateEnabledList();
-	}	
-	
-	
-	public int getIndexItem()
-	{
+	}
+
+
+	public int getIndexItem() {
 		return itemIndex;
 	}
-	
-	
-	public void setIndexItem(int value)
-	{
-		if (value>=0 && value<itemCount){
-			itemIndex=value;
+
+
+	public void setIndexItem(int value) {
+		if (value >= 0 && value < itemCount) {
+			itemIndex = value;
 			updateItem();
 		}
 	}
-	
-	
-	public int getIndexList()
-	{
+
+
+	public int getIndexList() {
 		return listIndex;
 	}
-	
-	
-	public int getIndexOnList()
-	{
-		return listIndex*itemCountOnList;
+
+
+	public int getIndexOnList() {
+		return listIndex * itemCountOnList;
 	}
-	
-	
-	public int getListCount()
-	{
+
+
+	public int getListCount() {
 		return listCount;
 	}
-	
-	
-	public boolean isEnabled()
-	{
+
+
+	public boolean isEnabled() {
 		return enabled;
 	}
-	
-	
-	public boolean isEnabledPrevItem()
-	{
+
+
+	public boolean isEnabledPrevItem() {
 		return enabledPrevItem;
 	}
-	
-	
-	public boolean isEnabledNextItem()
-	{
+
+
+	public boolean isEnabledNextItem() {
 		return enabledNextItem;
 	}
-	
-	
-	public boolean isEnabledPrevList()
-	{
+
+
+	public boolean isEnabledPrevList() {
 		return enabledPrevList;
 	}
-	
-	
-	public boolean isEnabledNextList()
-	{
+
+
+	public boolean isEnabledNextList() {
 		return enabledNextList;
 	}
-	
-	
-	public void nextList()
-	{
+
+
+	public void nextList() {
 		if (!enabled) return;
 		listIndex++;
-		if (listIndex>listCount-1) {
-			listIndex=listCount-1;
+		if (listIndex > listCount - 1) {
+			listIndex = listCount - 1;
 			return;
 		}
 		updateList();
 	}
-	
-	
-	public void prevList()
-	{
+
+
+	public void prevList() {
 		if (!enabled) return;
 		listIndex--;
-		if (listIndex<0) {
-			listIndex=0;
+		if (listIndex < 0) {
+			listIndex = 0;
 			return;
 		}
 		updateList();
-	}		
-	
-	
-	public void nextItem()
-	{
+	}
+
+
+	public void nextItem() {
 		if (!enabled) return;
 		itemIndex++;
-		if (itemIndex>itemCount-1) {
-			itemIndex=itemCount-1;
+		if (itemIndex > itemCount - 1) {
+			itemIndex = itemCount - 1;
 			return;
 		}
 		updateItem();
 	}
-	
-	
-	public void prevItem()
-	{
+
+
+	public void prevItem() {
 		if (!enabled) return;
 		itemIndex--;
-		if (itemIndex<0) {
-			itemIndex=0;
+		if (itemIndex < 0) {
+			itemIndex = 0;
 			return;
 		}
 		updateItem();
 	}
-	
-	
-	protected void updateList()
-	{
+
+
+	protected void updateList() {
 		updateEnabledList();
 	}
-	
-	
-	private void updateEnabledList()
-	{
-		if (listIndex<1) {
-			enabledPrevList=false;
+
+
+	private void updateEnabledList() {
+		if (listIndex < 1) {
+			enabledPrevList = false;
 		} else {
-			enabledPrevList=true;
+			enabledPrevList = true;
 		}
-		if (listIndex>=listCount-1) {
-			enabledNextList=false;
+		if (listIndex >= listCount - 1) {
+			enabledNextList = false;
 		} else {
-			enabledNextList=true;
+			enabledNextList = true;
 		}
 	}
-	
-	
-	protected void updateItem()
-	{
+
+
+	protected void updateItem() {
 		updateEnabledItem();
 	}
-	
-	
-	private void updateEnabledItem()
-	{
-		if (itemIndex<1) {
-			enabledPrevItem=false;
+
+
+	private void updateEnabledItem() {
+		if (itemIndex < 1) {
+			enabledPrevItem = false;
 		} else {
-			enabledPrevItem=true;
+			enabledPrevItem = true;
 		}
-		if (itemIndex>=itemCount-1) {
-			enabledNextItem=false;
+		if (itemIndex >= itemCount - 1) {
+			enabledNextItem = false;
 		} else {
-			enabledNextItem=true;
+			enabledNextItem = true;
 		}
-	}	
-	
+	}
+
 }
