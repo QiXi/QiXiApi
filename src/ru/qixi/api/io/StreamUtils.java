@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 
+
 /**
  * @author QiXi
  * @mail qixi@mail.ru
@@ -115,5 +116,19 @@ public class StreamUtils{
 		pOutputStream.flush();
 	}
 
+
+	public static final void flushAndCloseStream(final OutputStream pOutputStream) {
+		if (pOutputStream != null) {
+			try {
+				pOutputStream.flush();
+			}
+			catch (final IOException e) {
+				// Debug.e("Error flusing OutputStream", e);
+			}
+			finally {
+				StreamUtils.close(pOutputStream);
+			}
+		}
+	}
 	
 }
