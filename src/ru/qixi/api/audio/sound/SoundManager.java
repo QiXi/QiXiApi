@@ -76,6 +76,4 @@ public class SoundManager extends BaseSoundManager implements OnLoadCompleteList
 		mSounds.clear();
 	}
 
-
-
 }
