@@ -1,5 +1,6 @@
-package ru.qixi.api.audio;
+package ru.qixi.api.audio.sound;
 
+import ru.qixi.api.audio.BaseAudio;
 import android.media.SoundPool;
 
 
@@ -54,7 +55,7 @@ public class Sound extends BaseAudio {
 
 	@Override
 	public void play() {
-		final float masterVolume = 1;// getMasterVolume();
+		final float masterVolume = getMasterVolume();
 		mStreamID = getSoundPool().play(mSoundID, mLeftVolume * masterVolume, mRightVolume * masterVolume, SoundManager.PRIORITY_LOW, 0, 1.0f);
 	}
 

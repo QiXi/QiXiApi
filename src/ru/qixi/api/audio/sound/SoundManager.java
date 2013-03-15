@@ -1,4 +1,4 @@
-package ru.qixi.api.audio;
+package ru.qixi.api.audio.sound;
 
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -6,7 +6,7 @@ import android.media.SoundPool.OnLoadCompleteListener;
 import android.util.SparseArray;
 
 
-public class SoundManager implements IAudioManager, OnLoadCompleteListener {
+public class SoundManager extends BaseSoundManager implements OnLoadCompleteListener {
 
 	private static final int			SOUND_STATUS_OK	= 0;
 
@@ -75,5 +75,7 @@ public class SoundManager implements IAudioManager, OnLoadCompleteListener {
 		mSoundPool.release();
 		mSounds.clear();
 	}
+
+
 
 }

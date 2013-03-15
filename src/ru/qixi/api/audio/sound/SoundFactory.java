@@ -1,4 +1,4 @@
-package ru.qixi.api.audio;
+package ru.qixi.api.audio.sound;
 
 import java.io.File;
 import java.io.FileDescriptor;
