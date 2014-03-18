@@ -1,4 +1,4 @@
 QiXiApi
 =======
 
-Android Api
+QiXi Android code
