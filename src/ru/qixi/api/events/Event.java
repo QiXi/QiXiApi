@@ -11,23 +11,23 @@ package ru.qixi.api.events;
 
 public abstract class Event<T> implements IEvent<T>{
 
-	//public static final String TRACE = "trace";
+	public static final String	TRACE	= "trace";
 
-	protected String type;
-	protected T target;
+	protected String			type;
+	protected T					target;
 
 
-	/*public Event() {
+	public Event() {
 		this(TRACE);
 	}
 
 
 	public Event(final String pType) {
-		this(pType, null);
+		type = pType;
 	}
 
 
-	public Event(final String pType, final T pTarget) {
+	/*public Event(final String pType, final T pTarget) {
 		type = pType;
 		target = pTarget;
 	}*/
