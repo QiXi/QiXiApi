@@ -1,7 +1,7 @@
 package ru.qixi.api.events.v2;
 
-public abstract interface IEventListener {
+public interface IEventListener {
 
-	public abstract void handleEvent(IEvent pEvent);
-	
+	public void handleEvent(IEvent pEvent);
+
 }

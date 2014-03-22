@@ -15,11 +15,6 @@ public abstract class CommitEvent extends Event {
 	}
 
 
-	public Map<IEventParam, Object> getParameters() {
-		return mParams;
-	}
-
-
 	public abstract void commit();
 
 }

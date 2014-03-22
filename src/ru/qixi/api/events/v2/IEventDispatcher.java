@@ -1,16 +1,16 @@
 package ru.qixi.api.events.v2;
 
-public abstract interface IEventDispatcher {
+public interface IEventDispatcher {
 
-	public abstract void addEventListener(IEventType pEventType, IEventListener pEventListener);
-
-
-	public abstract boolean hasEventListener(IEventType pEventType);
+	public void addEventListener(IEventType pEventType, IEventListener pEventListener);
 
 
-	public abstract void removeEventListener(IEventType pEventType);
+	public boolean hasEventListener(IEventType pEventType);
 
 
-	public abstract void dispatchEvent(IEvent pEvent);
+	public void removeEventListener(IEventType pEventType);
+
+
+	public void dispatchEvent(IEvent pEvent);
 
 }

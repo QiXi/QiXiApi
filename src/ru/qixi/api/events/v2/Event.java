@@ -28,12 +28,13 @@ public class Event implements IEvent {
 
 	@Override
 	public Object getParameter(IEventParam id) {
-		Object param = null;
+		if (mParams != null) { return mParams.get(id); }
+		return null;
+	}
 
-		if (mParams != null) {
-			param = mParams.get(id);
-		}
-		return param;
+
+	public Map<IEventParam, Object> getParameters() {
+		return mParams;
 	}
 
 

@@ -1,10 +1,10 @@
 package ru.qixi.api.events.v2;
 
-public abstract interface IEvent {
+public interface IEvent {
 
-	public abstract IEventType getType();
+	public IEventType getType();
 
 
-	public abstract Object getParameter(IEventParam pParam);
+	public Object getParameter(IEventParam pParam);
 
 }
