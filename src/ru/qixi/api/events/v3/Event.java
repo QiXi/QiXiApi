@@ -5,19 +5,28 @@ import android.util.SparseArray;
 
 public class Event implements IEvent {
 
-	protected final int					mType;
-	protected EventPhase				mPhase;
-	protected final SparseArray<Object>	mParams;
+	protected final int				mType;
+	protected EventPhase			mPhase;
+	protected SparseArray<Object>	mParams;
+	protected Object				mParam;
 
 
 	public Event(int type) {
-		this(type, null);
+		mType = type;
+		mPhase = EventPhase.BUBBLING;
 	}
 
 
-	public Event(int type, SparseArray<Object> params) {
+	public Event(int type, SparseArray<Object> pParams) {
 		mType = type;
-		mParams = params;
+		mParams = pParams;
+		mPhase = EventPhase.BUBBLING;
+	}
+
+
+	public Event(int type, Object pParam) {
+		mType = type;
+		mParam = pParam;
 		mPhase = EventPhase.BUBBLING;
 	}
 
@@ -37,6 +46,12 @@ public class Event implements IEvent {
 	@Override
 	public void setPhase(EventPhase pEventPhase) {
 		mPhase = pEventPhase;
+	}
+
+
+	@Override
+	public Object getParameter() {
+		return mParam;
 	}
 
 

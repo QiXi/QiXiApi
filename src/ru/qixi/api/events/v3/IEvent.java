@@ -11,6 +11,9 @@ public interface IEvent {
 	public void setPhase(EventPhase pEventPhase);
 
 
+	public Object getParameter();
+
+
 	public Object getParameter(int pParam);
 
 }

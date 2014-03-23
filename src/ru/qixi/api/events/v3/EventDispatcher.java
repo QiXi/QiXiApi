@@ -93,8 +93,11 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public void dispatchEvent(IEvent pEvent) {
-		dispatchTargetEvent(pEvent);
-
+		int type = pEvent.getType();
+		final IEventListener listener = mBubbleListeners.get(type);
+		if (listener != null) {
+			listener.handleEvent(pEvent);
+		}
 		if (mParentDispatcher != null) {
 			mParentDispatcher.dispatchEvent(pEvent);
 		} else {
@@ -117,19 +120,13 @@ public class EventDispatcher implements IEventDispatcher {
 
 
 	public void dispatchCaptureEvent(IEvent pEvent) {
-		dispatchTargetEvent(pEvent);
-
-		for (int i = mClients.size() - 1; i >= 0; i--) {
-			mClients.get(i).dispatchCaptureEvent(pEvent);
-		}
-	}
-
-
-	private void dispatchTargetEvent(IEvent pEvent) {
 		int type = pEvent.getType();
-		final IEventListener listener = mBubbleListeners.get(type);
+		final IEventListener listener = mCaptureListeners.get(type);
 		if (listener != null) {
 			listener.handleEvent(pEvent);
+		}
+		for (int i = mClients.size() - 1; i >= 0; i--) {
+			mClients.get(i).dispatchCaptureEvent(pEvent);
 		}
 	}
 
