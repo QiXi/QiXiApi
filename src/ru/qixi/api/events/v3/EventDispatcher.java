@@ -119,6 +119,7 @@ public class EventDispatcher implements IEventDispatcher {
 	}
 
 
+	@Override
 	public void dispatchCaptureEvent(IEvent pEvent) {
 		int type = pEvent.getType();
 		final IEventListener listener = mCaptureListeners.get(type);
