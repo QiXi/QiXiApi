@@ -3,63 +3,91 @@ package ru.qixi.api.events.v3;
 import android.os.Handler;
 import android.os.Message;
 
+
 public class HandlerEventDispatcher extends EventDispatcher {
 
-	private Handler	mHandler;
+	static final int	MSG_EVENT			= 9991;
+	static final int	MSG_CAPTURE_EVENT	= 9992;
+
+	private Handler		mHandler			= new Handler(new IncomingHandlerCallback());
+	private Thread		mUiThread			= Thread.currentThread();
 
 
 	public HandlerEventDispatcher() {
 		super();
-		init();
 	}
 
 
 	public HandlerEventDispatcher(final String pClassName) {
 		super(pClassName);
-		init();
 	}
 
 
 	public HandlerEventDispatcher(final IEventDispatcher pDispatcher) {
 		super(pDispatcher);
-		init();
 	}
 
 
 	public HandlerEventDispatcher(final String pClassName, final IEventDispatcher pDispatcher) {
 		super(pClassName, pDispatcher);
-		init();
-	}
-
-
-	private void init() {
-		mHandler = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				dispatchEvent(msg);
-			}
-		};
-	}
-
-
-	private void dispatchEvent(Message msg) {
-		IEvent event = (IEvent)msg.obj;
-		super.dispatchEvent(event);
-		msg.recycle();
 	}
 
 
 	@Override
 	public void dispatchEvent(IEvent pEvent) {
-		Message msg = mHandler.obtainMessage(pEvent.getType(), pEvent);
-		mHandler.sendMessage(msg);
+		//		Log.i("Event", Thread.currentThread().getName() + " " + pEvent.toString());
+		if (Thread.currentThread() == mUiThread) {
+			super.dispatchEvent(pEvent);
+		} else {
+			Message msg = mHandler.obtainMessage(MSG_EVENT, pEvent);
+			mHandler.sendMessage(msg);
+		}
 	}
 
 
 	@Override
 	public void dispatchCaptureEvent(IEvent pEvent) {
-
+		//		Log.i("CaptureEvent", Thread.currentThread().getName() + " " + pEvent.toString());
+		if (Thread.currentThread() == mUiThread) {
+			super.dispatchCaptureEvent(pEvent);
+		} else {
+			Message msg = mHandler.obtainMessage(MSG_CAPTURE_EVENT, pEvent);
+			mHandler.sendMessage(msg);
+		}
 	}
 
+
+	private void dispatchEvent(Message pMessage) {
+		//		Log.i("dispatchEvent", Thread.currentThread().getName());
+		IEvent event = (IEvent) pMessage.obj;
+		super.dispatchEvent(event);
+	}
+
+
+	private void dispatchCaptureEvent(Message pMessage) {
+		//		Log.i("dispatchCaptureEvent", Thread.currentThread().getName());
+		IEvent event = (IEvent) pMessage.obj;
+		super.dispatchCaptureEvent(event);
+	}
+
+
+	private class IncomingHandlerCallback implements Handler.Callback {
+
+		@Override
+		public boolean handleMessage(Message pMessage) {
+			switch (pMessage.what) {
+			case MSG_EVENT:
+				dispatchEvent(pMessage);
+				break;
+			case MSG_CAPTURE_EVENT:
+				dispatchCaptureEvent(pMessage);
+				break;
+			default:
+				break;
+			}
+
+			return true;
+		}
+
+	}
 }
