@@ -2,18 +2,18 @@ package ru.qixi.api.events.v3;
 
 public interface IEvent {
 
-	public int getType();
+	int getType();
 
 
-	public EventPhase getPhase();
+	EventPhase getPhase();
 
 
-	public void setPhase(EventPhase pEventPhase);
+	void setPhase(EventPhase pEventPhase);
 
 
-	public Object getParameter();
+	Object getParameter();
 
 
-	public Object getParameter(int pParam);
+	Object getParameter(int pParam);
 
 }
