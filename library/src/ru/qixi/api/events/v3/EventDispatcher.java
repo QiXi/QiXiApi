@@ -137,4 +137,13 @@ public class EventDispatcher implements IEventDispatcher {
 		return mClassName;
 	}
 
+
+	@Override
+	public void setParentDispatcher(IEventDispatcher pEventDispatcher) {
+		if (pEventDispatcher != null) {
+			mParentDispatcher = pEventDispatcher;
+			mParentDispatcher.registerClient(this);
+		}
+	}
+
 }

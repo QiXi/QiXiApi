@@ -31,4 +31,7 @@ public interface IEventDispatcher {
 
 	void dispatchCaptureEvent(IEvent pEvent);
 
+
+	void setParentDispatcher(IEventDispatcher pEventDispatcher);
+
 }
