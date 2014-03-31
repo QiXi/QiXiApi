@@ -18,7 +18,7 @@ public abstract class TObjectPool<T> extends ObjectPool {
 
 
 	public T allocate() {
-		T object = (T) super.allocate();
+		T object = (T)super.allocate();
 		return object;
 	}
 

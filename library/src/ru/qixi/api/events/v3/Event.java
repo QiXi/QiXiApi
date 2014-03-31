@@ -11,21 +11,21 @@ public class Event implements IEvent {
 	protected Object				mParam;
 
 
-	public Event(int type) {
-		mType = type;
+	public Event(int pType) {
+		mType = pType;
 		mPhase = EventPhase.BUBBLING;
 	}
 
 
-	public Event(int type, SparseArray<Object> pParams) {
-		mType = type;
+	public Event(int pType, SparseArray<Object> pParams) {
+		mType = pType;
 		mParams = pParams;
 		mPhase = EventPhase.BUBBLING;
 	}
 
 
-	public Event(int type, Object pParam) {
-		mType = type;
+	public Event(int pType, Object pParam) {
+		mType = pType;
 		mParam = pParam;
 		mPhase = EventPhase.BUBBLING;
 	}
@@ -56,8 +56,10 @@ public class Event implements IEvent {
 
 
 	@Override
-	public Object getParameter(int id) {
-		if (mParams != null) { return mParams.get(id); }
+	public Object getParameter(int pId) {
+		if(mParams != null){
+			return mParams.get(pId);
+		}
 		return null;
 	}
 

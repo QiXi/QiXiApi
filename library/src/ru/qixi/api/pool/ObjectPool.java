@@ -2,7 +2,6 @@ package ru.qixi.api.pool;
 
 import ru.qixi.api.core.array.ArrayFixedSize;
 
-
 /**
  * @author QiXi
  * @mail qixi@mail.ru
@@ -60,7 +59,7 @@ public abstract class ObjectPool {
 	}
 
 
-	public void release(final Object pEntry) {
+	public void release(final IPoolable pEntry) {
 		mData.add(pEntry);
 	}
 
