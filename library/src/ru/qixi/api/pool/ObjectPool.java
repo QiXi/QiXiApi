@@ -2,12 +2,6 @@ package ru.qixi.api.pool;
 
 import ru.qixi.api.core.array.ArrayFixedSize;
 
-/**
- * @author QiXi
- * @mail qixi@mail.ru
- * @site http://qixi.ru
- **/
-
 public abstract class ObjectPool {
 
 	private static final int		DEFAULT_SIZE	= 32;
@@ -22,13 +16,13 @@ public abstract class ObjectPool {
 	}
 
 
-	public ObjectPool(final int pSize) {
+	public ObjectPool(int pSize) {
 		mDataLength = pSize;
 		setSize(mDataLength);
 	}
 
 
-	private void setSize(final int pSize) {
+	private void setSize(int pSize) {
 		mData = new ArrayFixedSize<Object>(pSize);
 		fill();
 	}
@@ -54,12 +48,11 @@ public abstract class ObjectPool {
 
 	protected Object allocate() {
 		Object result = mData.removeLast();
-		assert result != null : "Object pool of type " + this.getClass().getSimpleName() + " exhausted!!";
 		return result;
 	}
 
 
-	public void release(final IPoolable pEntry) {
+	public void release(IPoolable pEntry) {
 		mData.add(pEntry);
 	}
 

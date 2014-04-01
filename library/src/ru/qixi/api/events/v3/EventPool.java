@@ -14,6 +14,13 @@ public class EventPool extends TObjectPool<Event> {
 	}
 
 
+	public Event allocate(int type) {
+		Event entry = super.allocate();
+		entry.set(type);
+		return entry;
+	}
+
+
 	@Override
 	public void release(IPoolable entry) {
 		entry.reset();

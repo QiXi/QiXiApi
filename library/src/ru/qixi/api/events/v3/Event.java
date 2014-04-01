@@ -2,29 +2,43 @@ package ru.qixi.api.events.v3;
 
 import android.util.SparseArray;
 
-
 public class Event implements IEvent {
 
-	protected final int				mType;
+	protected int					mType;
 	protected EventPhase			mPhase;
 	protected SparseArray<Object>	mParams;
 	protected Object				mParam;
 
 
 	public Event(int pType) {
+		set(pType);
+	}
+
+
+	public Event(int pType, SparseArray<Object> pParams) {
+		set(pType, pParams);
+	}
+
+
+	public Event(int pType, Object pParam) {
+		set(pType, pParam);
+	}
+
+
+	public void set(int pType) {
 		mType = pType;
 		mPhase = EventPhase.BUBBLING;
 	}
 
 
-	public Event(int pType, SparseArray<Object> pParams) {
+	public void set(int pType, SparseArray<Object> pParams) {
 		mType = pType;
 		mParams = pParams;
 		mPhase = EventPhase.BUBBLING;
 	}
 
 
-	public Event(int pType, Object pParam) {
+	public void set(int pType, Object pParam) {
 		mType = pType;
 		mParam = pParam;
 		mPhase = EventPhase.BUBBLING;
