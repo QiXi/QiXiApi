@@ -78,8 +78,15 @@ public class Event implements IEvent {
 	}
 
 
+	@Override
 	public SparseArray<Object> getParameters() {
 		return mParams;
+	}
+
+
+	@Override
+	public void onFinish() {
+
 	}
 
 

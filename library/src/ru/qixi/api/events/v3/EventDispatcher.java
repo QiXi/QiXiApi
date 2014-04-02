@@ -7,7 +7,7 @@ import android.util.SparseArray;
 
 public class EventDispatcher implements IEventDispatcher {
 
-	private static final String			DEFAULT_NAME	= "EventDispatcher";
+	private static final String			DEFAULT_NAME	= EventDispatcher.class.getSimpleName();
 
 	private String						mClassName;
 	private SparseArray<IEventListener>	mBubbleListeners;
@@ -21,17 +21,17 @@ public class EventDispatcher implements IEventDispatcher {
 	}
 
 
-	public EventDispatcher(final String pClassName) {
+	public EventDispatcher(String pClassName) {
 		this(pClassName, null);
 	}
 
 
-	public EventDispatcher(final IEventDispatcher pDispatcher) {
+	public EventDispatcher(IEventDispatcher pDispatcher) {
 		this(DEFAULT_NAME, pDispatcher);
 	}
 
 
-	public EventDispatcher(final String pClassName, final IEventDispatcher pDispatcher) {
+	public EventDispatcher(String pClassName, IEventDispatcher pDispatcher) {
 		mClassName = pClassName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
@@ -128,6 +128,9 @@ public class EventDispatcher implements IEventDispatcher {
 		}
 		for (int i = mClients.size() - 1; i >= 0; i--) {
 			mClients.get(i).dispatchCaptureEvent(pEvent);
+		}
+		if (mParentDispatcher == null) {
+			pEvent.onFinish();
 		}
 	}
 
