@@ -36,6 +36,8 @@ public class IntentUtil {
 			return false;
 		PackageManager packageManager = context.getPackageManager();
 		List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+		if (list == null)
+			return false;
 		return list.size() > 0;
 	}
 
@@ -67,7 +69,7 @@ public class IntentUtil {
 		Intent shareIntent = createShareIntent(subject, text);
 		if (filterPackage != null) {
 			List<Intent> targetShareIntents = new ArrayList<Intent>();
-			List<ResolveInfo> matches = context.getPackageManager().queryIntentActivities(shareIntent, 0);
+			List<ResolveInfo> matches = context.getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
 			for (ResolveInfo info : matches) {
 				String packageName = info.activityInfo.packageName;
 				if (!filterPackage.contains(packageName)) {
