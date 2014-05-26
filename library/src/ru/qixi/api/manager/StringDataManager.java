@@ -9,6 +9,8 @@ import android.util.SparseArray;
 
 public class StringDataManager {
 
+	private static final String			EMPTY	= "";
+
 	private static StringDataManager	instance;
 
 	private SparseArray<String>			mResources;
@@ -21,7 +23,8 @@ public class StringDataManager {
 
 
 	public static StringDataManager getInstance() {
-		if (instance == null) instance = new StringDataManager();
+		if (instance == null)
+			instance = new StringDataManager();
 		return instance;
 	}
 
@@ -32,13 +35,16 @@ public class StringDataManager {
 
 
 	public void update(Context pContext, Field[] pFields, Locale pLocale) {
-		if (mLocale == pLocale) return;
+		if (mLocale == pLocale)
+			return;
 		mLocale = pLocale;
 		final SparseArray<String> res = mResources;
 		for (Field field : pFields) {
 			int value = 0;
+			String str = EMPTY;
 			try {
 				value = field.getInt(null);
+				str = pContext.getString(value);
 			}
 			catch (IllegalArgumentException e) {
 				e.printStackTrace();
@@ -46,7 +52,10 @@ public class StringDataManager {
 			catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
-			res.put(value, pContext.getString(value));
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			res.put(value, str);
 		}
 	}
 
