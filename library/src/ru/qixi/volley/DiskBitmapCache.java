@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
@@ -22,7 +23,9 @@ public class DiskBitmapCache extends DiskBasedCache implements ImageCache {
 	public DiskBitmapCache(File rootDirectory, int maxCacheSizeInBytes) {
 		super(rootDirectory, maxCacheSizeInBytes);
 		mRootDirectory = rootDirectory;
-		mMemoryCache = new BitmapLruCache(BitmapLruCache.getDefaultLruCacheSize());
+		int bytes = BitmapLruCache.getDefaultLruCacheBytes();
+		Log.i("DiskBitmapCache", "bytes=" + bytes);
+		mMemoryCache = new BitmapLruCache(bytes);
 	}
 
 
@@ -32,10 +35,12 @@ public class DiskBitmapCache extends DiskBasedCache implements ImageCache {
 		if (bitmap != null) { return bitmap; }
 
 		final Entry entry = get(url);
-		if (entry == null) return null;
+		if (entry == null)
+			return null;
 		bitmap = BitmapFactory.decodeByteArray(entry.data, 0, entry.data.length);
 
-		mMemoryCache.putBitmap(url, bitmap);
+		if (bitmap != null)
+			mMemoryCache.putBitmap(url, bitmap);
 		return bitmap;
 	}
 
