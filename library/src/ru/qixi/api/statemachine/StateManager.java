@@ -38,7 +38,6 @@ public class StateManager {
 			State state = mStack.remove(mLength - 1);
 			state.leaveState();
 			state.previous = null;
-
 			mLength = mStack.size();
 			if (mLength != 0) mStack.get(mLength - 1).enterState();
 		}
