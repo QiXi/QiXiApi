@@ -4,8 +4,7 @@ import android.text.TextUtils;
 
 public class Log {
 
-	private static final String		TAG					= "MegaApp";
-
+	public static String			TAG					= "QiXiApp";
 	private static boolean			ENABLED				= true;
 	private static final boolean	LOCATION_ENABLED	= true;
 
