@@ -2,7 +2,6 @@ package ru.qixi.api.statemachine;
 
 import java.util.ArrayList;
 
-
 /**
  * @author QiXi
  * @mail qixi@mail.ru
@@ -10,6 +9,8 @@ import java.util.ArrayList;
  **/
 
 public class StateManager {
+
+	final static String			TAG	= "StateManager";
 
 	protected ArrayList<State>	mStack;
 	protected int				mLength;
@@ -23,7 +24,8 @@ public class StateManager {
 
 	public void pushState(final State pState) {
 		if (mLength != 0) {
-			if (mStack.get(mLength - 1) == pState) return;
+			if (mStack.get(mLength - 1) == pState)
+				return;
 			pState.previous = mStack.get(mLength - 1);
 			pState.previous.leaveState();
 		}
@@ -39,13 +41,15 @@ public class StateManager {
 			state.leaveState();
 			state.previous = null;
 			mLength = mStack.size();
-			if (mLength != 0) mStack.get(mLength - 1).enterState();
+			if (mLength != 0)
+				mStack.get(mLength - 1).enterState();
 		}
 	}
 
 
 	public void changeState(final State pState) {
-		if (mLength != 0) mStack.get(mLength - 1).leaveState();
+		if (mLength != 0)
+			mStack.get(mLength - 1).leaveState();
 		for (int i = 0; i < mLength; i++) {
 			mStack.get(i).previous = null;
 		}
@@ -77,7 +81,8 @@ public class StateManager {
 
 
 	public void update(final float pDeltaTime) {
-		if (mLength != 0) mStack.get(mLength - 1).updateState(pDeltaTime);
+		if (mLength != 0)
+			mStack.get(mLength - 1).updateState(pDeltaTime);
 	}
 
 
