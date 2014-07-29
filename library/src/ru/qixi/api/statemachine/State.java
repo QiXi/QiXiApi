@@ -33,7 +33,7 @@ public abstract class State {
 
 	@Override
 	public String toString() {
-		return mTag;
+		return "tag:" + mTag + " previous:" + previous;
 	}
 
 }
