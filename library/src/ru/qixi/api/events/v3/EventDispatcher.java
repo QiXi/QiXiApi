@@ -2,6 +2,8 @@ package ru.qixi.api.events.v3;
 
 import java.util.ArrayList;
 
+import ru.qixi.api.util.Log;
+
 import android.util.SparseArray;
 
 
@@ -32,6 +34,7 @@ public class EventDispatcher implements IEventDispatcher {
 
 
 	public EventDispatcher(String pClassName, IEventDispatcher pDispatcher) {
+		//Log.d("new EventDispatcher name:[%s]", pClassName);
 		mClassName = pClassName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
@@ -109,12 +112,14 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public void registerClient(IEventDispatcher pEventDispatcher) {
+		//Log.d("registerClient pEventDispatcher:[%s]", pEventDispatcher);
 		mClients.add(pEventDispatcher);
 	}
 
 
 	@Override
 	public void unregisterClient(IEventDispatcher pEventDispatcher) {
+		//Log.d("unregisterClient pEventDispatcher:[%s]", pEventDispatcher);
 		mClients.remove(pEventDispatcher);
 	}
 

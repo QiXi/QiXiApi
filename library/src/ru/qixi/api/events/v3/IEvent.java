@@ -2,6 +2,7 @@ package ru.qixi.api.events.v3;
 
 import android.util.SparseArray;
 
+
 public interface IEvent {
 
 	int getType();
@@ -23,5 +24,8 @@ public interface IEvent {
 
 
 	void onFinish();
+
+
+	void onFeedback();
 
 }

@@ -2,6 +2,7 @@ package ru.qixi.api.events.v3;
 
 import android.util.SparseArray;
 
+
 public class Event implements IEvent {
 
 	protected int					mType;
@@ -71,7 +72,7 @@ public class Event implements IEvent {
 
 	@Override
 	public Object getParameter(int pId) {
-		if(mParams != null){
+		if (mParams != null) {
 			return mParams.get(pId);
 		}
 		return null;
@@ -87,6 +88,12 @@ public class Event implements IEvent {
 	@Override
 	public void onFinish() {
 
+	}
+
+
+	@Override
+	public void onFeedback() {
+		// empty
 	}
 
 
