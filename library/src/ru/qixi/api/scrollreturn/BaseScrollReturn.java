@@ -1,7 +1,6 @@
 package ru.qixi.api.scrollreturn;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 public class BaseScrollReturn {
 
@@ -107,16 +106,10 @@ public class BaseScrollReturn {
 
 		@Override
 		public void setState(ReturnState pState) {
-			state = pState;
-			switch (state) {
-			case OFF_SCREEN:
-			case RETURNING:
-				updateClickable(view, false);
-				break;
-			case ON_SCREEN:
-				updateClickable(view, true);
-				break;
+			if (state == pState) {
+				return;
 			}
+			state = pState;
 		}
 
 
@@ -191,18 +184,4 @@ public class BaseScrollReturn {
 		}
 	}
 
-
-	private static void updateClickable(View view, boolean value) {
-		if (view == null) {
-			return;
-		}
-		view.setClickable(value);
-		if (view instanceof ViewGroup) {
-			ViewGroup group = ((ViewGroup)view);
-			for (int i = 0; i < group.getChildCount(); i++) {
-				updateClickable(group.getChildAt(i), value);
-			}
-		}
-
-	}
 }
