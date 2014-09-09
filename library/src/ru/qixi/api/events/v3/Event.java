@@ -1,14 +1,10 @@
 package ru.qixi.api.events.v3;
 
-import android.util.SparseArray;
-
-
 public class Event implements IEvent {
 
-	protected int					mType;
-	protected EventPhase			mPhase;
-	protected SparseArray<Object>	mParams;
-	protected Object				mParam;
+	protected int			mType;
+	protected EventPhase	mPhase;
+	protected IParam		mParam;
 
 
 	public Event(int pType) {
@@ -16,12 +12,7 @@ public class Event implements IEvent {
 	}
 
 
-	public Event(int pType, SparseArray<Object> pParams) {
-		set(pType, pParams);
-	}
-
-
-	public Event(int pType, Object pParam) {
+	public Event(int pType, IParam pParam) {
 		set(pType, pParam);
 	}
 
@@ -32,14 +23,7 @@ public class Event implements IEvent {
 	}
 
 
-	public void set(int pType, SparseArray<Object> pParams) {
-		mType = pType;
-		mParams = pParams;
-		mPhase = EventPhase.BUBBLING;
-	}
-
-
-	public void set(int pType, Object pParam) {
+	public void set(int pType, IParam pParam) {
 		mType = pType;
 		mParam = pParam;
 		mPhase = EventPhase.BUBBLING;
@@ -65,23 +49,17 @@ public class Event implements IEvent {
 
 
 	@Override
-	public Object getParameter() {
-		return mParam;
-	}
-
-
-	@Override
 	public Object getParameter(int pId) {
-		if (mParams != null) {
-			return mParams.get(pId);
+		if (mParam != null) {
+			return mParam.get(pId);
 		}
 		return null;
 	}
 
 
 	@Override
-	public SparseArray<Object> getParameters() {
-		return mParams;
+	public Object getParameters() {
+		return mParam;
 	}
 
 
@@ -98,7 +76,8 @@ public class Event implements IEvent {
 
 
 	public String toString() {
-		return String.format("{Type: %s, Phase: %s, Params: %s}", new Object[] { mType, mPhase, mParams != null ? mParams.toString() : "none" });
+		return String.format("{Type: %s, Phase: %s, Params: %s}",
+				new Object[] { mType, mPhase, mParam != null ? mParam.toString() : "none" });
 	}
 
 }

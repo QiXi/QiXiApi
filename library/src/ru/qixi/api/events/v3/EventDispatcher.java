@@ -2,8 +2,6 @@ package ru.qixi.api.events.v3;
 
 import java.util.ArrayList;
 
-import ru.qixi.api.util.Log;
-
 import android.util.SparseArray;
 
 
