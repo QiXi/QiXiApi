@@ -3,30 +3,13 @@ package ru.qixi.api.events.v3;
 public class Event implements IEvent {
 
 	protected int			mType;
-	protected EventPhase	mPhase;
-	protected IParam		mParam;
+	protected IEventPhase	mPhase;
+	protected Object		mParam;
 
 
 	public Event(int pType) {
-		set(pType);
-	}
-
-
-	public Event(int pType, IParam pParam) {
-		set(pType, pParam);
-	}
-
-
-	public void set(int pType) {
 		mType = pType;
-		mPhase = EventPhase.BUBBLING;
-	}
-
-
-	public void set(int pType, IParam pParam) {
-		mType = pType;
-		mParam = pParam;
-		mPhase = EventPhase.BUBBLING;
+		mPhase = IEventPhase.BUBBLING;
 	}
 
 
@@ -36,30 +19,40 @@ public class Event implements IEvent {
 	}
 
 
+	public void setType(int type) {
+		mType = type;
+	}
+
+
 	@Override
-	public EventPhase getPhase() {
+	public IEventPhase getPhase() {
 		return mPhase;
 	}
 
 
 	@Override
-	public void setPhase(EventPhase pEventPhase) {
+	public void setPhase(IEventPhase pEventPhase) {
 		mPhase = pEventPhase;
 	}
 
 
 	@Override
 	public Object getParameter(int pId) {
-		if (mParam != null) {
-			return mParam.get(pId);
+		if (mParam != null && mParam instanceof IParam) {
+			return ((IParam) mParam).get(pId);
 		}
 		return null;
 	}
 
 
 	@Override
-	public Object getParameters() {
+	public Object getParameter() {
 		return mParam;
+	}
+
+
+	public void setParameter(Object pParam) {
+		mParam = pParam;
 	}
 
 

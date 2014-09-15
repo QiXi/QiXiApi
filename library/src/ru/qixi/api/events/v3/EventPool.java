@@ -16,7 +16,7 @@ public class EventPool extends TObjectPool<Event> {
 
 	public Event allocate(int type) {
 		Event entry = super.allocate();
-		entry.set(type);
+		entry.setType(type);
 		return entry;
 	}
 

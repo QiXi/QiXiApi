@@ -1,5 +1,7 @@
 package ru.qixi.api.events.v3;
 
-public enum EventPhase {
+public enum IEventPhase {
+
 	BUBBLING, CAPTURING;
+	
 }
