@@ -48,14 +48,18 @@ public class StateManager {
 
 
 	public void changeState(final State pState) {
-		if (mLength != 0)
-			mStack.get(mLength - 1).leaveState();
-		for (int i = 0; i < mLength; i++) {
-			mStack.get(i).previous = null;
+		if (mLength != 0) {
+			State state = mStack.remove(mLength - 1);
+			state.leaveState();
+			state.previous = null;
+			mLength = mStack.size();
+			if (mLength != 0) {
+				pState.previous = mStack.get(mLength - 1);
+			}
 		}
-		mStack = new ArrayList<State>();
+		mStack.add(pState);
 		mLength = mStack.size();
-		pushState(pState);
+		pState.enterState();
 	}
 
 
