@@ -23,11 +23,18 @@ public class StateManager {
 
 
 	public void pushState(final State pState) {
+		pushState(pState, false);
+	}
+
+
+	public void pushState(final State pState, final boolean pMissLeave) {
 		if (mLength != 0) {
 			if (mStack.get(mLength - 1) == pState)
 				return;
 			pState.previous = mStack.get(mLength - 1);
-			pState.previous.leaveState();
+			if (!pMissLeave) {
+				pState.previous.leaveState();
+			}
 		}
 		mStack.add(pState);
 		mLength = mStack.size();
