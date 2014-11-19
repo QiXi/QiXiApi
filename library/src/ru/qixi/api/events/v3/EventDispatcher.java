@@ -7,8 +7,6 @@ import android.util.SparseArray;
 
 public class EventDispatcher implements IEventDispatcher {
 
-	private static final String			DEFAULT_NAME	= EventDispatcher.class.getSimpleName();
-
 	private String						mClassName;
 	private SparseArray<IEventListener>	mBubbleListeners;
 	private SparseArray<IEventListener>	mCaptureListeners;
@@ -16,24 +14,14 @@ public class EventDispatcher implements IEventDispatcher {
 	private IEventDispatcher			mParentDispatcher;
 
 
-	public EventDispatcher() {
-		this(DEFAULT_NAME, null);
+	public EventDispatcher(String pName) {
+		this(pName, null);
 	}
 
 
-	public EventDispatcher(String pClassName) {
-		this(pClassName, null);
-	}
-
-
-	public EventDispatcher(IEventDispatcher pDispatcher) {
-		this(DEFAULT_NAME, pDispatcher);
-	}
-
-
-	public EventDispatcher(String pClassName, IEventDispatcher pDispatcher) {
+	public EventDispatcher(String pName, IEventDispatcher pDispatcher) {
 		//Log.d("new EventDispatcher name:[%s]", pClassName);
-		mClassName = pClassName;
+		mClassName = pName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
 			mParentDispatcher.registerClient(this);
