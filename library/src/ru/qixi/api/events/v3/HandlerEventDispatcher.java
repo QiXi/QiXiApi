@@ -9,16 +9,16 @@ public class HandlerEventDispatcher extends EventDispatcher {
 	static final int	MSG_EVENT			= 9991;
 	static final int	MSG_CAPTURE_EVENT	= 9992;
 
-	private Handler		mHandler			= new Handler(new IncomingHandlerCallback());
+	private Handler		mHandler			= new Handler(new HandlerCallback());
 	private Thread		mUiThread			= Thread.currentThread();
 
 	
-	public HandlerEventDispatcher(final String pName) {
+	public HandlerEventDispatcher(String pName) {
 		super(pName);
 	}
 
 
-	public HandlerEventDispatcher(final String pName, final IEventDispatcher pDispatcher) {
+	public HandlerEventDispatcher(String pName, IEventDispatcher pDispatcher) {
 		super(pName, pDispatcher);
 	}
 
@@ -61,7 +61,7 @@ public class HandlerEventDispatcher extends EventDispatcher {
 	}
 
 
-	private class IncomingHandlerCallback implements Handler.Callback {
+	private class HandlerCallback implements Handler.Callback {
 
 		@Override
 		public boolean handleMessage(Message pMessage) {

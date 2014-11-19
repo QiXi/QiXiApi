@@ -7,7 +7,7 @@ import android.util.SparseArray;
 
 public class EventDispatcher implements IEventDispatcher {
 
-	private String						mClassName;
+	private String						mName;
 	private SparseArray<IEventListener>	mBubbleListeners;
 	private SparseArray<IEventListener>	mCaptureListeners;
 	private ArrayList<IEventDispatcher>	mClients;
@@ -21,7 +21,7 @@ public class EventDispatcher implements IEventDispatcher {
 
 	public EventDispatcher(String pName, IEventDispatcher pDispatcher) {
 		//Log.d("new EventDispatcher name:[%s]", pClassName);
-		mClassName = pName;
+		mName = pName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
 			mParentDispatcher.registerClient(this);
@@ -128,7 +128,7 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public String toString() {
-		return mClassName;
+		return mName;
 	}
 
 
