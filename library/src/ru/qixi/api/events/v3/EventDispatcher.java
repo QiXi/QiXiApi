@@ -102,7 +102,7 @@ public class EventDispatcher implements IEventDispatcher {
 		if (mParentDispatcher != null) {
 			mParentDispatcher.dispatchEvent(pEvent);
 		} else {
-			pEvent.setPhase(IEventPhase.CAPTURING);
+			pEvent.setPhase(EventPhase.CAPTURING);
 			dispatchCaptureEvent(pEvent);
 		}
 	}

@@ -3,13 +3,13 @@ package ru.qixi.api.events.v3;
 public class Event implements IEvent {
 
 	protected int			mType;
-	protected IEventPhase	mPhase;
+	protected EventPhase	mPhase;
 	protected Object		mParam;
 
 
 	public Event(int pType) {
 		mType = pType;
-		mPhase = IEventPhase.BUBBLING;
+		mPhase = EventPhase.BUBBLING;
 	}
 
 
@@ -25,13 +25,13 @@ public class Event implements IEvent {
 
 
 	@Override
-	public IEventPhase getPhase() {
+	public EventPhase getPhase() {
 		return mPhase;
 	}
 
 
 	@Override
-	public void setPhase(IEventPhase pEventPhase) {
+	public void setPhase(EventPhase pEventPhase) {
 		mPhase = pEventPhase;
 	}
 

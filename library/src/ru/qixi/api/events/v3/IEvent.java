@@ -5,10 +5,10 @@ public interface IEvent {
 	int getType();
 
 
-	IEventPhase getPhase();
+	EventPhase getPhase();
 
 
-	void setPhase(IEventPhase pEventPhase);
+	void setPhase(EventPhase pEventPhase);
 
 
 	Object getParameter();
