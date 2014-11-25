@@ -63,7 +63,7 @@ public class Event implements IEvent {
 
 
 	@Override
-	public void onFeedback() {
+	public void onCallback() {
 		// empty
 	}
 

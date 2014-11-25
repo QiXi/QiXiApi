@@ -20,6 +20,6 @@ public interface IEvent {
 	void onFinish();
 
 
-	void onFeedback();
+	void onCallback();
 
 }

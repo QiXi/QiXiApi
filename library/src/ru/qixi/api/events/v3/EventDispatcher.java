@@ -6,6 +6,8 @@ import android.util.SparseArray;
 
 
 public class EventDispatcher implements IEventDispatcher {
+	
+	private static final int DEF_CAPACITY = 4;
 
 	private String						mName;
 	private SparseArray<IEventListener>	mBubbleListeners;
@@ -26,9 +28,9 @@ public class EventDispatcher implements IEventDispatcher {
 			mParentDispatcher = pDispatcher;
 			mParentDispatcher.registerClient(this);
 		}
-		mClients = new ArrayList<IEventDispatcher>();
-		mBubbleListeners = new SparseArray<IEventListener>();
-		mCaptureListeners = new SparseArray<IEventListener>();
+		mClients = new ArrayList<IEventDispatcher>(DEF_CAPACITY);
+		mBubbleListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
+		mCaptureListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
 	}
 
 
