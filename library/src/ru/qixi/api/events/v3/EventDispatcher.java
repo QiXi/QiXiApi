@@ -110,6 +110,9 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public void registerClient(IEventDispatcher pEventDispatcher) {
+		if(mClients.contains(pEventDispatcher)){
+            return;
+        }
 		//Log.d("registerClient pEventDispatcher:[%s]", pEventDispatcher);
 		mClients.add(pEventDispatcher);
 	}
