@@ -9,33 +9,23 @@ public class HandlerEventDispatcher extends EventDispatcher {
 	static final int	MSG_EVENT			= 9991;
 	static final int	MSG_CAPTURE_EVENT	= 9992;
 
-	private Handler		mHandler			= new Handler(new IncomingHandlerCallback());
+	private Handler		mHandler			= new Handler(new HandlerCallback());
 	private Thread		mUiThread			= Thread.currentThread();
 
-
-	public HandlerEventDispatcher() {
-		super();
+	
+	public HandlerEventDispatcher(String pName) {
+		super(pName);
 	}
 
 
-	public HandlerEventDispatcher(final String pClassName) {
-		super(pClassName);
-	}
-
-
-	public HandlerEventDispatcher(final IEventDispatcher pDispatcher) {
-		super(pDispatcher);
-	}
-
-
-	public HandlerEventDispatcher(final String pClassName, final IEventDispatcher pDispatcher) {
-		super(pClassName, pDispatcher);
+	public HandlerEventDispatcher(String pName, IEventDispatcher pDispatcher) {
+		super(pName, pDispatcher);
 	}
 
 
 	@Override
 	public void dispatchEvent(IEvent pEvent) {
-		//		Log.i("Event", Thread.currentThread().getName() + " " + pEvent.toString());
+		//Log.i("Event", Thread.currentThread().getName() + " " + pEvent.toString());
 		if (Thread.currentThread() == mUiThread) {
 			super.dispatchEvent(pEvent);
 		} else {
@@ -47,7 +37,7 @@ public class HandlerEventDispatcher extends EventDispatcher {
 
 	@Override
 	public void dispatchCaptureEvent(IEvent pEvent) {
-		//		Log.i("CaptureEvent", Thread.currentThread().getName() + " " + pEvent.toString());
+		//Log.i("CaptureEvent", Thread.currentThread().getName() + " " + pEvent.toString());
 		if (Thread.currentThread() == mUiThread) {
 			super.dispatchCaptureEvent(pEvent);
 		} else {
@@ -58,20 +48,20 @@ public class HandlerEventDispatcher extends EventDispatcher {
 
 
 	private void dispatchEvent(Message pMessage) {
-		//		Log.i("dispatchEvent", Thread.currentThread().getName());
+		//Log.i("dispatchEvent", Thread.currentThread().getName());
 		IEvent event = (IEvent) pMessage.obj;
 		super.dispatchEvent(event);
 	}
 
 
 	private void dispatchCaptureEvent(Message pMessage) {
-		//		Log.i("dispatchCaptureEvent", Thread.currentThread().getName());
+		//Log.i("dispatchCaptureEvent", Thread.currentThread().getName());
 		IEvent event = (IEvent) pMessage.obj;
 		super.dispatchCaptureEvent(event);
 	}
 
 
-	private class IncomingHandlerCallback implements Handler.Callback {
+	private class HandlerCallback implements Handler.Callback {
 
 		@Override
 		public boolean handleMessage(Message pMessage) {

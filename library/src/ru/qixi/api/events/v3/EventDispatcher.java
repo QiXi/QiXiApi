@@ -6,41 +6,31 @@ import android.util.SparseArray;
 
 
 public class EventDispatcher implements IEventDispatcher {
+	
+	private static final int DEF_CAPACITY = 4;
 
-	private static final String			DEFAULT_NAME	= EventDispatcher.class.getSimpleName();
-
-	private String						mClassName;
+	private String						mName;
 	private SparseArray<IEventListener>	mBubbleListeners;
 	private SparseArray<IEventListener>	mCaptureListeners;
 	private ArrayList<IEventDispatcher>	mClients;
 	private IEventDispatcher			mParentDispatcher;
 
 
-	public EventDispatcher() {
-		this(DEFAULT_NAME, null);
+	public EventDispatcher(String pName) {
+		this(pName, null);
 	}
 
 
-	public EventDispatcher(String pClassName) {
-		this(pClassName, null);
-	}
-
-
-	public EventDispatcher(IEventDispatcher pDispatcher) {
-		this(DEFAULT_NAME, pDispatcher);
-	}
-
-
-	public EventDispatcher(String pClassName, IEventDispatcher pDispatcher) {
+	public EventDispatcher(String pName, IEventDispatcher pDispatcher) {
 		//Log.d("new EventDispatcher name:[%s]", pClassName);
-		mClassName = pClassName;
+		mName = pName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
 			mParentDispatcher.registerClient(this);
 		}
-		mClients = new ArrayList<IEventDispatcher>();
-		mBubbleListeners = new SparseArray<IEventListener>();
-		mCaptureListeners = new SparseArray<IEventListener>();
+		mClients = new ArrayList<IEventDispatcher>(DEF_CAPACITY);
+		mBubbleListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
+		mCaptureListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
 	}
 
 
@@ -102,7 +92,7 @@ public class EventDispatcher implements IEventDispatcher {
 		if (mParentDispatcher != null) {
 			mParentDispatcher.dispatchEvent(pEvent);
 		} else {
-			pEvent.setPhase(IEventPhase.CAPTURING);
+			pEvent.setPhase(EventPhase.CAPTURING);
 			dispatchCaptureEvent(pEvent);
 		}
 	}
@@ -143,7 +133,7 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public String toString() {
-		return mClassName;
+		return mName;
 	}
 
 
