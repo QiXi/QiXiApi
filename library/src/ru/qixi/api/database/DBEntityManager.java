@@ -97,7 +97,7 @@ public abstract class DBEntityManager extends SQLiteOpenHelper {
 
 	// Remove record associated with entity
 	public int remove(IDBEntity entity) {
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = getWritableDatabase();
 		IDBEntityRepository repository = entity.getRepository();
 
 		String whereClause = repository.getKeyId() + " = ?";
@@ -129,8 +129,9 @@ public abstract class DBEntityManager extends SQLiteOpenHelper {
 		String[] fieldsArray = fieldsList.toArray(new String[values.size()]);
 		String fields = DBUtils.implodeArray(fieldsArray, " AND ");
 		String[] parameters = values.values().toArray(new String[values.size()]);
-		Cursor cursor = db.query(repository.getTableName(), repository.getKeys(), fields, parameters, null, null, null,
-				null);
+
+		String tableName = repository.getTableName();
+		Cursor cursor = db.query(tableName, repository.getKeys(), fields, parameters, null, null, null, null);
 		IDBEntity entity;
 		if (cursor != null && cursor.moveToFirst()) {
 			entity = repository.buildEntityFromCursorData(cursor);
@@ -159,7 +160,7 @@ public abstract class DBEntityManager extends SQLiteOpenHelper {
 	// Calculate records count and return result
 	public int count(IDBEntityRepository repository) {
 		String countQuery = "SELECT * FROM " + repository.getTableName();
-		SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
 		int result = cursor.getCount();
 		cursor.close();

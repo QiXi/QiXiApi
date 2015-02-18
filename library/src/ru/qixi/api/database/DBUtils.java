@@ -2,30 +2,22 @@ package ru.qixi.api.database;
 
 public class DBUtils {
 
-	/**
-	 * Method to join array elements of type string
-	 * 
-	 * @param inputArray
-	 *            Array which contains strings
-	 * @param glueString
-	 *            String between each array element
-	 * @return String containing all array elements separated by glue string
-	 */
 	public static String implodeArray(String[] inputArray, String glueString) {
-		/** Output variable */
-		String output = "";
-		if (inputArray.length > 0) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(inputArray[0]);
+		StringBuilder sb = new StringBuilder();
+		appendArray(sb, inputArray, glueString);
+		return sb.toString();
+	}
 
-			for (int i = 1; i < inputArray.length; i++) {
+
+	public static void appendArray(StringBuilder sb, String[] inputArray, String glueString) {
+		int length = inputArray.length;
+		if (length > 0) {
+			sb.append(inputArray[0]);
+			for (int i = 1; i < length; i++) {
 				sb.append(glueString);
 				sb.append(inputArray[i]);
 			}
-
-			output = sb.toString();
 		}
-		return output;
 	}
 
 }
