@@ -1,4 +1,4 @@
-﻿package ru.qixi.api.util;
+package ru.qixi.api.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
