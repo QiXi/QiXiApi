@@ -5,26 +5,21 @@ import android.database.Cursor;
 
 import java.util.List;
 
+
 public interface IDBEntityRepository {
 
-	public String getSQLCreateTable();
+    String getSQLCreateTable();
 
+    String getTableName();
 
-	public String getTableName();
+    String[] getKeys();
 
+    String getKeyId();
 
-	public String[] getKeys();
+    ContentValues getContentValues(IDBEntity entity);
 
+    IDBEntity buildEntityFromCursorData(Cursor cursor);
 
-	public String getKeyId();
-
-
-	public ContentValues getContentValues(IDBEntity entity);
-
-
-	public IDBEntity buildEntityFromCursorData(Cursor cursor);
-
-
-	public List<? extends IDBEntity> selectToList(Cursor cursor);
+    List<? extends IDBEntity> selectToList(Cursor cursor);
 
 }

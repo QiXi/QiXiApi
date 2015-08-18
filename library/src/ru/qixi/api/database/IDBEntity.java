@@ -2,9 +2,8 @@ package ru.qixi.api.database;
 
 public interface IDBEntity {
 
-	public IDBEntityRepository getRepository();
+    IDBEntityRepository getRepository();
 
+    long getId();
 
-	public int getId();
-	
 }

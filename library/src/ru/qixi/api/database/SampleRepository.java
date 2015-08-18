@@ -1,10 +1,10 @@
 package ru.qixi.api.database;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SampleRepository implements IDBEntityRepository {
 
@@ -63,7 +63,7 @@ public class SampleRepository implements IDBEntityRepository {
 	@Override
 	public IDBEntity buildEntityFromCursorData(Cursor cursor) {
 		SampleData data = new SampleData();
-		int id = Integer.parseInt(cursor.getString(0));
+		long id = cursor.getLong(0);
 		String str = cursor.getString(1);
 		data.setId(id).setText(str);
 		return data;
