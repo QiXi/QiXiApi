@@ -1,8 +1,5 @@
 package ru.qixi.api.helper;
 
-import android.util.FloatMath;
-
-
 public class PositionHelper {
 	
 	private float mWidth;
@@ -39,8 +36,8 @@ public class PositionHelper {
 		
 		mItemSizeHalf = pItemSize/2;
 		
-		mItemInWidth = (int) FloatMath.floor(mWidth / mItemSize);
-		mItemInHeight = (int) FloatMath.floor(mHeight / mItemSize);
+		mItemInWidth = (int) Math.floor(mWidth / mItemSize);
+		mItemInHeight = (int) Math.floor(mHeight / mItemSize);
 
 		mSpaceInWidth = mWidth - (mItemInWidth * mItemSize);
 		mSpaceInHeight = mHeight - (mItemInHeight * mItemSize);
@@ -48,9 +45,9 @@ public class PositionHelper {
 		mSpaceInHeightHalf = mSpaceInHeight/2;
 		
 		if(mIsHorizontal){
-			mItemInWidth = (int) FloatMath.ceil((float)mCount/mItemInHeight);
+			mItemInWidth = (int) Math.ceil((float)mCount/mItemInHeight);
 		}else{
-			mItemInHeight = (int) FloatMath.ceil((float)mCount/mItemInWidth);
+			mItemInHeight = (int) Math.ceil((float)mCount/mItemInWidth);
 		}
 		
 		mCenterX = new float[mCount];

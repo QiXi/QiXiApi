@@ -18,7 +18,7 @@ public class StringDataManager {
 
 
 	private StringDataManager() {
-		mResources = new SparseArray<String>();
+		mResources = new SparseArray<>();
 	}
 
 

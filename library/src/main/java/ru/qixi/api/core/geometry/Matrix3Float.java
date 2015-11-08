@@ -1,8 +1,5 @@
 package ru.qixi.api.core.geometry;
 
-import java.lang.Math;
-
-
 /**
  * @author QiXi
  * @mail qixi@mail.ru

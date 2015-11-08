@@ -134,7 +134,7 @@ public class BaseScrollReturn {
 
 
 	//IReturnItem
-	public static interface IReturnItem {
+	public interface IReturnItem {
 
 		void reset();
 
@@ -157,7 +157,7 @@ public class BaseScrollReturn {
 
 
 	//ReturnState
-	public static enum ReturnState {
+	public enum ReturnState {
 		ON_SCREEN,
 		OFF_SCREEN,
 		RETURNING
@@ -165,14 +165,14 @@ public class BaseScrollReturn {
 
 
 	//ReturnItemListener
-	public static interface ReturnItemListener {
+	public interface ReturnItemListener {
 
 		void onChengeState(ReturnState state);
 	}
 
 
 	//ReturnDirection
-	public static enum ReturnDirection {
+	public enum ReturnDirection {
 		TOP(1),
 		BOTTOM(-1);
 
