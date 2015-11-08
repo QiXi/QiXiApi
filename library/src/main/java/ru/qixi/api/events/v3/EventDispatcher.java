@@ -1,36 +1,48 @@
 package ru.qixi.api.events.v3;
 
+import android.util.SparseArray;
+
 import java.util.ArrayList;
 
-import android.util.SparseArray;
+import ru.qixi.api.util.Log;
 
 
 public class EventDispatcher implements IEventDispatcher {
-	
-	private static final int DEF_CAPACITY = 4;
 
-	private String						mName;
+	private static final String			DEFAULT_NAME	= EventDispatcher.class.getSimpleName();
+
+	private String						mClassName;
 	private SparseArray<IEventListener>	mBubbleListeners;
 	private SparseArray<IEventListener>	mCaptureListeners;
 	private ArrayList<IEventDispatcher>	mClients;
 	private IEventDispatcher			mParentDispatcher;
 
 
-	public EventDispatcher(String pName) {
-		this(pName, null);
+	public EventDispatcher() {
+		this(DEFAULT_NAME, null);
 	}
 
 
-	public EventDispatcher(String pName, IEventDispatcher pDispatcher) {
+	public EventDispatcher(String pClassName) {
+		this(pClassName, null);
+	}
+
+
+	public EventDispatcher(IEventDispatcher pDispatcher) {
+		this(DEFAULT_NAME, pDispatcher);
+	}
+
+
+	public EventDispatcher(String pClassName, IEventDispatcher pDispatcher) {
 		//Log.d("new EventDispatcher name:[%s]", pClassName);
-		mName = pName;
+		mClassName = pClassName;
 		if (pDispatcher != null) {
 			mParentDispatcher = pDispatcher;
 			mParentDispatcher.registerClient(this);
 		}
-		mClients = new ArrayList<IEventDispatcher>(DEF_CAPACITY);
-		mBubbleListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
-		mCaptureListeners = new SparseArray<IEventListener>(DEF_CAPACITY);
+		mClients = new ArrayList<IEventDispatcher>();
+		mBubbleListeners = new SparseArray<IEventListener>();
+		mCaptureListeners = new SparseArray<IEventListener>();
 	}
 
 
@@ -92,7 +104,7 @@ public class EventDispatcher implements IEventDispatcher {
 		if (mParentDispatcher != null) {
 			mParentDispatcher.dispatchEvent(pEvent);
 		} else {
-			pEvent.setPhase(EventPhase.CAPTURING);
+			pEvent.setPhase(IEventPhase.CAPTURING);
 			dispatchCaptureEvent(pEvent);
 		}
 	}
@@ -100,17 +112,17 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public void registerClient(IEventDispatcher pEventDispatcher) {
-		if(mClients.contains(pEventDispatcher)){
+        if(mClients.contains(pEventDispatcher)){
             return;
         }
-		//Log.d("registerClient pEventDispatcher:[%s]", pEventDispatcher);
+        Log.d("registerClient pEventDispatcher:[%s]", pEventDispatcher);
 		mClients.add(pEventDispatcher);
 	}
 
 
 	@Override
 	public void unregisterClient(IEventDispatcher pEventDispatcher) {
-		//Log.d("unregisterClient pEventDispatcher:[%s]", pEventDispatcher);
+		Log.d("unregisterClient pEventDispatcher:[%s]", pEventDispatcher);
 		mClients.remove(pEventDispatcher);
 	}
 
@@ -133,7 +145,7 @@ public class EventDispatcher implements IEventDispatcher {
 
 	@Override
 	public String toString() {
-		return mName;
+		return mClassName;
 	}
 
 

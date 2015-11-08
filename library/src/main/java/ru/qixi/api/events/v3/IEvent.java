@@ -5,10 +5,10 @@ public interface IEvent {
 	int getType();
 
 
-	EventPhase getPhase();
+	IEventPhase getPhase();
 
 
-	void setPhase(EventPhase pEventPhase);
+	void setPhase(IEventPhase pEventPhase);
 
 
 	Object getParameter();
@@ -20,6 +20,6 @@ public interface IEvent {
 	void onFinish();
 
 
-	void onCallback();
+	void onFeedback();
 
 }
