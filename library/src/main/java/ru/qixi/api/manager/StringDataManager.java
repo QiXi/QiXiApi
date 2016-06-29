@@ -1,67 +1,61 @@
 package ru.qixi.api.manager;
 
-import java.lang.reflect.Field;
-import java.util.Locale;
-
 import android.content.Context;
 import android.util.SparseArray;
+
+import java.util.Locale;
 
 
 public class StringDataManager {
 
-	private static final String			EMPTY	= "";
+    private static StringDataManager instance;
 
-	private static StringDataManager	instance;
-
-	private SparseArray<String>			mResources;
-	private Locale						mLocale;
-
-
-	private StringDataManager() {
-		mResources = new SparseArray<>();
-	}
+    private Context             mContext;
+    private SparseArray<String> mResources;
+    private Locale              mLocale;
 
 
-	public static StringDataManager getInstance() {
-		if (instance == null)
-			instance = new StringDataManager();
-		return instance;
-	}
+    private StringDataManager() {
+        mResources = new SparseArray<>(64);
+    }
 
 
-	public void init(Context pContext, Field[] pFields) {
-		update(pContext, pFields, Locale.getDefault());
-	}
+    public static StringDataManager getInstance() {
+        if (instance == null) {
+            instance = new StringDataManager();
+        }
+        return instance;
+    }
 
 
-	public void update(Context pContext, Field[] pFields, Locale pLocale) {
-		if (mLocale == pLocale)
-			return;
-		mLocale = pLocale;
-		final SparseArray<String> res = mResources;
-		for (Field field : pFields) {
-			int value = 0;
-			String str = EMPTY;
-			try {
-				value = field.getInt(null);
-				str = pContext.getString(value);
-			}
-			catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-			catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			res.put(value, str);
-		}
-	}
+    public void init(Context pContext) {
+        mContext = pContext;
+        clear();
+    }
 
 
-	public String getString(int id) {
-		return mResources.get(id);
-	}
+    public void update(Locale pLocale) {
+        if (mLocale == pLocale) {
+            return;
+        }
+        mLocale = pLocale;
+        clear();
+    }
+
+
+    private void clear() {
+        mResources.clear();
+        mResources.put(0, "");
+    }
+
+
+    public String getString(int id) {
+        String item = mResources.get(id);
+        if (item == null) {
+            item = mContext.getString(id);
+            mResources.put(id, item);
+        }
+        return item;
+    }
 
 }
