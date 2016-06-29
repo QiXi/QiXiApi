@@ -1,8 +1,5 @@
 package ru.qixi.api.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +7,9 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.webkit.URLUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class IntentUtil {

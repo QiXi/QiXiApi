@@ -1,10 +1,11 @@
 package ru.qixi.api.scrollreturn;
 
+import android.view.View;
+import android.view.animation.TranslateAnimation;
+
 import ru.qixi.api.scrollreturn.BaseScrollReturn.BaseReturnItem;
 import ru.qixi.api.scrollreturn.BaseScrollReturn.ReturnDirection;
 import ru.qixi.api.scrollreturn.BaseScrollReturn.ReturnState;
-import android.view.View;
-import android.view.animation.TranslateAnimation;
 
 public class AnimationReturnItem extends BaseReturnItem {
 

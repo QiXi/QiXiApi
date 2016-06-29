@@ -1,8 +1,9 @@
 package ru.qixi.api.audio.sound;
 
+import android.media.AudioManager;
+
 import ru.qixi.api.audio.IAudio;
 import ru.qixi.api.audio.IAudioManager;
-import android.media.AudioManager;
 
 
 public class BaseSoundManager<T extends IAudio> implements IAudioManager<IAudio> {
