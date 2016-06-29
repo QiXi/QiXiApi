@@ -17,17 +17,17 @@ public class StateManager {
 
 
 	public StateManager() {
-		mStack = new ArrayList<State>();
+		mStack = new ArrayList<>();
 		mLength = 0;
 	}
 
 
-	public void pushState(final State pState) {
+	public void pushState(State pState) {
 		pushState(pState, false);
 	}
 
 
-	public void pushState(final State pState, final boolean pMissLeave) {
+	public void pushState(State pState, boolean pMissLeave) {
 		if (mLength != 0) {
 			if (mStack.get(mLength - 1) == pState)
 				return;
@@ -54,7 +54,7 @@ public class StateManager {
 	}
 
 
-	public void changeState(final State pState) {
+	public void changeState(State pState) {
 		if (mLength != 0) {
 			State state = mStack.remove(mLength - 1);
 			state.leaveState();
@@ -78,7 +78,7 @@ public class StateManager {
 	}
 
 
-	public void updatePreviousState(final float pTime) {
+	public void updatePreviousState(float pTime) {
 		if (mLength > 1) {
 			State state = mStack.get(mLength - 2);
 			state.updateState(pTime);
@@ -91,7 +91,7 @@ public class StateManager {
 	}
 
 
-	public void update(final float pDeltaTime) {
+	public void update(float pDeltaTime) {
 		if (mLength != 0)
 			mStack.get(mLength - 1).updateState(pDeltaTime);
 	}
@@ -101,7 +101,7 @@ public class StateManager {
 		for (int i = 0; i < mLength; i++) {
 			mStack.get(i).previous = null;
 		}
-		mStack = new ArrayList<State>();
+		mStack = new ArrayList<>();
 		mLength = mStack.size();
 	}
 
