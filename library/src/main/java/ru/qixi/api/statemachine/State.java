@@ -8,32 +8,32 @@ package ru.qixi.api.statemachine;
 
 public abstract class State {
 
-	final String	mTag;
-	State			previous;
+    final String tag;
+    State previous;
 
 
-	public State(final String pTag) {
-		mTag = pTag;
-	}
+    public State(final String pTag) {
+        tag = pTag;
+    }
 
 
-	public String getTag() {
-		return mTag;
-	}
+    public String getTag() {
+        return tag;
+    }
 
 
-	abstract void enterState();
+    protected abstract void enterState();
 
 
-	abstract void leaveState();
+    protected abstract void leaveState();
 
 
-	abstract void updateState(float time);
+    protected abstract void updateState(float time);
 
 
-	@Override
-	public String toString() {
-		return "tag:" + mTag + " previous:" + previous;
-	}
+    @Override
+    public String toString() {
+        return "tag:" + tag + " previous:" + previous;
+    }
 
 }

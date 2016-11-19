@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StateManager {
 
-	final static String			TAG	= "StateManager";
+	public final static String			TAG	= "StateManager";
 
 	protected ArrayList<State>	mStack;
 	protected int				mLength;
